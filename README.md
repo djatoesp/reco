@@ -1,2 +1,2 @@
 # reco
-R-ECO: An R script to measure the supply of urban ecosys-tem services in Europe
+R-ECO: An R script to measure the supply of urban ecosystem services in Europe
