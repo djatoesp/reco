@@ -1,0 +1,21 @@
+** Below are listed the continental / global links to the datasets required to run the R-ECO script:
+
+* Urban Atlas / Street Tree Layer / Building Height: 
+https://land.copernicus.eu/local/urban-atlas
+
+* Digital Elevation Model: 
+https://www.usgs.gov/centers/eros/science/usgs-eros-archive-digital-elevation-shuttle-radar-topography-mission-srtm-1?qt-science_center_objects=0#qt-science_center_objects
+
+* Global Hydrologic Soil Groups:
+https://daac.ornl.gov/cgi-bin/dsviewer.pl?ds_id=1566
+
+* Global Biodiversity Information Facility:
+https://www.gbif.org/occurrence/search
+
+* European Protected Sites:
+https://www.eea.europa.eu/data-and-maps/explore-interactive-maps/european-protected-areas-1
+
+** These datasets must be referred to the boundaries of the case study area, which in the case of Copenhagen are available at the following link:
+
+* Copenhagen districts: 
+https://www.opendata.dk/city-of-copenhagen/bydele
