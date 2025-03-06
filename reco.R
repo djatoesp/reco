@@ -328,7 +328,7 @@ i5.1_p<-ggplot() + geom_sf(data=ua_dis,mapping=aes(fill=i5.1_sc),colour=NA) +
         legend.key.size=unit(0.2,'cm'),plot.margin=margin(0.1,0,-0.1,0,'cm')) + 
   guides(fill=guide_colorbar(order=1,title.vjust=1),color=guide_legend(order=2,title.vjust=1))
 # calculate the mean albedo per district
-ua_mean_i5.1<-aggregate(ua_dis$i5.1,list(ua_dis$navn),mean)
+ua_mean_i5.1<-aggregate(ua_dis$i5.1,list(ua_dis$navn),sum)
 # rename the column names to enable subsequent merge
 names(ua_mean_i5.1)<-c('navn','i5.1')
 # add the values of i5.1 to the districts data frame
@@ -371,7 +371,7 @@ i5.2_p<-ggplot() + geom_sf(data=ua_dis,mapping=aes(fill=i5.2_sc),colour=NA) +
         legend.key.size=unit(0.2,'cm'),plot.margin=margin(0.1,0,-0.1,0,'cm')) + 
   guides(fill=guide_colorbar(order=1,title.vjust=1),color=guide_legend(order=2,title.vjust=1))
 # calculate the mean Kc per district
-ua_mean_i5.2<-aggregate(ua_dis$i5.2,list(ua_dis$navn),mean)
+ua_mean_i5.2<-aggregate(ua_dis$i5.2,list(ua_dis$navn),sum)
 # rename the column names to enable subsequent merge
 names(ua_mean_i5.2)<-c('navn','i5.2')
 # add the values of i5.2 to the districts data frame
@@ -652,7 +652,7 @@ i8.2_p<-ggplot() + geom_sf(data=ua_dis,mapping=aes(fill=ns),colour=NA) +
 # compute a weighted value of FA/NS by multipliying the values by the UA areas
 ua_dis$i8<-as.double(ua_dis$fa*ua_dis$area_ua+ua_dis$ns*ua_dis$area_ua)
 # calculate the mean FA/NS score per district
-ua_mean_i8<-aggregate(ua_dis$i8,list(ua_dis$navn),mean)
+ua_mean_i8<-aggregate(ua_dis$i8,list(ua_dis$navn),sum)
 # rename the column names to enable subsequent merge
 names(ua_mean_i8)<-c('navn','i8')
 # add the values of i8 to the districts data frame
@@ -1220,7 +1220,12 @@ dis_df$i15<-dis_df$i15/dis_df$area
 # normalize and aggregate the composite indicators
 dis_df$i5<-dis_df$i5.1/max(dis_df$i5.1)+dis_df$i5.2/max(dis_df$i5.2)+dis_df$i5.3/max(dis_df$i5.3)
 dis_df$i9<-dis_df$i9.1/max(dis_df$i9.1)+dis_df$i9.2/max(dis_df$i9.2)+dis_df$i9.3/max(dis_df$i9.3)
-dis_df$i14<-dis_df$i14.1/max(dis_df$i14.1)+dis_df$i14.2/max(dis_df$i14.2)+dis_df$i14.3/max(dis_df$i14.3)
+# calculate the mean minimum distance to GI per district (not weighted per population)
+dis_df$i14.4<-unlist(lapply(1:length(cl_gi.min),function(i){
+  mean(cl_gi.min[[i]],na.rm=T)
+}))
+dis_df$navn[dis_df$navn=='Vesterbro-Kongens Enghave']<-'Vesterbro'
+dis_df$i14<-dis_df$i14.1/max(dis_df$i14.1)+dis_df$i14.2/max(dis_df$i14.2)+dis_df$i14.3/max(dis_df$i14.3)+min(dis_df$i14.4)/dis_df$i14.4
 # subset and sort the data frame with the indicators
 dis_df<-dis_df[,c(1,7,8,9,10,31,14,15,16,32,20,23,24,25,33,29)]
 # transform the indicator about the species (counts - integer) to numeric
